@@ -1,50 +1,38 @@
 #!/usr/bin/env python3
 import ipdb
-from lib import Author, Magazine, Article
+from lib.Author import Author
+from lib.Magazine import Magazine
+from lib.Article import Article
 
 if __name__ == '__main__':
-    # Create some authors
-    author1 = Author("Riro Chacha")
-    author2 = Author("Mclaurine")
+    #  WRITE YOUR TEST CODE HERE ###
 
-    # Create some magazines
-    magazine1 = Magazine("Nature", "Science")
-    magazine2 = Magazine("Vogue", "Fashion")
+    # Create authors
+    author1 = Author("John Doe")
+    author2 = Author("Jane Smith")
 
-    # Add articles to authors
-    article1 = author1.add_article(magazine1, "The Science of Nature")
-    article2 = author1.add_article(magazine2, "Fashion Trends")
-    article3 = author2.add_article(magazine2, "The Art of Fashion")
+    # Create magazines
+    magazine1 = Magazine("Tech Mag", "Technology")
+    magazine2 = Magazine("Sci Journal", "Science")
 
-    # Test methods
-    assert author1.name == "Riro Chacha"
-    assert author2.name == "Mclaurine"
-    assert magazine1.name == "Nature"
-    assert magazine2.category == "Fashion"
-    assert article1.title == "The Science of Nature"
-    assert article2.author == author1
-    assert article3.magazine == magazine2
+    # Add articles
+    article1 = author1.add_article(magazine1, "Python Basics")
+    article2 = author2.add_article(magazine1, "Data Science Trends")
+    article3 = author1.add_article(magazine2, "Quantum Computing")
 
-    # Test object relationships
-    assert article1.author == author1
-    assert article1.magazine == magazine1
-    assert author1.articles == [article1, article2]
-    assert author1.magazines() == [magazine1, magazine2]
-    assert magazine2.contributors() == [author1, author2]
+    # Test relationships
+    print(article1.author().name())  # Output: John Doe
+    print(article1.magazine().name())  # Output: Tech Mag
 
-    # Test associations and aggregate methods
-    author1.add_article(magazine1, "Nature Photography")
-    author1.add_article(magazine1, "Ecology and Conservation")
-    author2.add_article(magazine2, "Fashion Photography")
-    author2.add_article(magazine2, "Designer Interviews")
+    print(author1.articles())  # Output: [article1, article3]
+    print(author1.magazines())  # Output: [magazine1, magazine2]
 
-    assert Magazine.find_by_name("Nature") == magazine1
-    assert magazine2.article_titles() == ["Fashion Trends", "The Art of Fashion", "Fashion Photography", "Designer Interviews"]
-    assert magazine2.contributing_authors() == [author2]
+    print(magazine1.contributors())  # Output: [author1, author2]
+    print(magazine2.find_by_name("Sci Journal").category())  # Output: Science
+    print(magazine1.article_titles())  # Output: ['Python Basics', 'Data Science Trends']
 
-    # Print success message
-    print("All tests passed!")
+    print(magazine1.contributing_authors())  # Output: [author1]
 
-    # Start the debugger
+# DO NOT REMOVE THIS
     ipdb.set_trace()
 

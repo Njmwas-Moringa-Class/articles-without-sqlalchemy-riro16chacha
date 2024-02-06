@@ -1,38 +1,35 @@
-from Article import Article
-
 class Magazine:
-    _all_magazines = []
+    magazines = []  # to store all instances of Magazine
 
     def __init__(self, name, category):
-        self.name = name
-        self.category = category
-        Magazine._all_magazines.append(self)
+        self._name = name
+        self._category = category
+        self._articles = []
+        Magazine.magazines.append(self)
 
-    @classmethod
-    def all(cls):
-        return cls._all_magazines
+    def name(self):
+        return self._name
 
-    @classmethod
-    def find_by_name(cls, name):
-        for magazine in cls._all_magazines:
-            if magazine.name == name:
-                return magazine
+    def category(self):
+        return self._category
+
+    def all():
+        return Magazine.magazines
 
     def contributors(self):
-        authors = {article.author for article in Article.all() if article.magazine == self}
-        return list(authors)
+        return list(set(article.author() for article in self._articles))
 
-    def article_titles(self):
-        return [article.title for article in Article.all() if article.magazine == self]
+    def find_by_name(cls, name):
+        return next((magazine for magazine in Magazine.magazines if magazine.name() == name), None)
+
+    def article_titles(cls):
+        return [article.title() for article in cls._articles]
 
     def contributing_authors(self):
-        authors = {}
-        for article in Article.all():
-            if article.magazine == self:
-                if article.author in authors:
-                    authors[article.author] += 1
-                else:
-                    authors[article.author] = 1
-        return [author for author, count in authors.items() if count > 2]
+        authors_count = {}
+        for article in self._articles:
+            author = article.author()
+            authors_count[author] = authors_count.get(author, 0) + 1
 
+        return [author for author, count in authors_count.items() if count > 2]
 
