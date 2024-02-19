@@ -1,27 +1,30 @@
 from Article import Article
+
 class Author:
-    authors = []  # to store all instances of Author
+    all_authors = []
 
-    def __init__(self, name):
+    def _init_(self, name):
         self._name = name
-        self._articles = []
-        Author.authors.append(self)
+        self._authored_articles = []
+        self._class_.all_authors.append(self)
 
+    @property
     def name(self):
         return self._name
 
     def articles(self):
-        return self._articles
+        return self._authored_articles
 
     def magazines(self):
-        return list(set(article.magazine() for article in self._articles))
+        return list(set(article.magazine for article in self._authored_articles))
 
     def add_article(self, magazine, title):
-        article = Article(self, magazine, title)
-        self._articles.append(article)
-        return article
+        new_article = Article(self, magazine, title)
+        self._authored_articles.append(new_article)
 
     def topic_areas(self):
-        return list(set(magazine.category() for magazine in self.magazines()))
+        return list(set(article.magazine.category for article in self._authored_articles))
 
-
+    @classmethod
+    def all(cls):
+        return cls.all_authors
