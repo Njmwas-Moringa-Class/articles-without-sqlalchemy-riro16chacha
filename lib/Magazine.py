@@ -1,3 +1,4 @@
+
 from Article import Article
 
 class Magazine:
