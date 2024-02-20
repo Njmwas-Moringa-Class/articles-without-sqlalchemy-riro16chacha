@@ -1,11 +1,11 @@
 class Article:
     all_articles = []
 
-    def _init_(self, author, magazine, title):
+    def __init__(self, author, magazine, title):
         self._author = author
         self._magazine = magazine
         self._title = title
-        self._class_.all_articles.append(self)
+        Article.all_articles.append(self)  # Use the class name directly
         magazine.add_published_article(self)
         author.add_authored_article(self)
 

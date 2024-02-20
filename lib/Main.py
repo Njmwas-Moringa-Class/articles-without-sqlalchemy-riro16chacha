@@ -30,11 +30,14 @@ def add_article():
     magazine_category = input("Enter magazine category: ")
     article_title = input("Enter article title: ")
 
-    author = Author.find_or_create(author_name)
-    magazine = Magazine.find_or_create(magazine_name, magazine_category)
+    author = Author.find_by_name(author_name)
+    magazine = Magazine.find_by_name(magazine_name)
 
-    author.add_article(magazine, article_title)
-    print(f"Article '{article_title}' added to {magazine_name} by {author_name}.")
+    if author and magazine:
+        author.add_article(magazine, article_title)
+        print(f"Article '{article_title}' added to {magazine_name} by {author_name}.")
+    else:
+        print("Author or magazine not found.")
 
 def get_author_info():
     author_name = input("Enter author's name: ")
@@ -94,5 +97,5 @@ def main():
         else:
             print("Invalid choice. Please enter 1, 2, 3, 4, 5, 6, 7, or 8.")
 
-if __name__ == "_main_":
+if __name__ == "__main__":
     main()

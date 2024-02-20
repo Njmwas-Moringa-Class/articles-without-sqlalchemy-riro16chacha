@@ -3,10 +3,10 @@ from Article import Article
 class Author:
     all_authors = []
 
-    def _init_(self, name):
+    def __init__(self, name):
         self._name = name
         self._authored_articles = []
-        self._class_.all_authors.append(self)
+        Author.all_authors.append(self)  # Use the class name directly
 
     @property
     def name(self):

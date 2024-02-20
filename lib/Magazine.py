@@ -1,15 +1,14 @@
-
 from Article import Article
 
 class Magazine:
     all_magazines = []
 
-    def _init_(self, name, category):
+    def __init__(self, name, category):
         self._name = name
         self._category = category
         self._additional_info = {}
         self._published_articles = []
-        self._class_.all_magazines.append(self)
+        Magazine.all_magazines.append(self)  # Use the class name directly
 
     @property
     def name(self):
@@ -46,5 +45,5 @@ class Magazine:
     def contributors(self):
         return list(set(article.author for article in self._published_articles))
 
-    def _str_(self):
+    def __str__(self):
         return f"Magazine: {self._name}, Category: {self._category}, Additional Info: {self._additional_info}"
